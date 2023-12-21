@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Bike.Models.Height>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Высота ландшафта</h1>
+
+<p>
+    <a asp-action="Create">Добавить запись</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Terrain_height)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Complexity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Terrain_height)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Complexity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.HeightId">Редактировать</a> |
+                <a asp-action="Details" asp-route-id="@item.HeightId">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.HeightId">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

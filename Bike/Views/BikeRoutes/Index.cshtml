@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@model IEnumerable<Bike.Models.Route>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Маршруты</h1>
+<h1>Тип велосипедов: @ViewData["Name"]</h1>
+
+<p>
+    <a asp-action="Index" asp-controller="BikeTypes">Возврат к списку типов велоcипедов</a>
+    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded || (await AuthorizationService.AuthorizeAsync(User, "RequireGuestRole")).Succeeded)
+    {
+        <br />
+
+        <a asp-action="Create" asp-route-id="@ViewData["IdBikeType"]">Добавить запись</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Address1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BikeType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeResult)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address1.FullAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address2.FullAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BikeType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeResult)
+            </td>
+            <td>
+                    <a asp-action="Details" asp-route-id="@item.RouteId">Детали</a>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded || (await AuthorizationService.AuthorizeAsync(User, "RequireGuestRole")).Succeeded)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.RouteId">Редактировать</a>
+                        <a asp-action="Delete" asp-route-id="@item.RouteId">Удалить</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

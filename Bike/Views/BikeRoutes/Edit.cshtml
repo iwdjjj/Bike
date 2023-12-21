@@ -1,0 +1,55 @@
+﻿@model Bike.Models.Route
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Редактировать</h1>
+
+<h4>Маршруты</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RouteId" />
+            <div class="form-group">
+                <label asp-for="AddressId1" class="control-label"></label>
+                <select asp-for="AddressId1" class="form-control" asp-items="ViewBag.AddressId1"></select>
+                <span asp-validation-for="AddressId1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressId2" class="control-label"></label>
+                <select asp-for="AddressId2" class="form-control" asp-items="ViewBag.AddressId2"></select>
+                <span asp-validation-for="AddressId2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BikeTypeId" class="control-label"></label>
+                <select asp-for="BikeTypeId" class="form-control" asp-items="ViewBag.BikeTypeId"></select>
+                <span asp-validation-for="BikeTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Time" class="control-label"></label>
+                <input asp-for="Time" class="form-control" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeResult" class="control-label"></label>
+                <input asp-for="TimeResult" class="form-control" />
+                <span asp-validation-for="TimeResult" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-id="@ViewData["IdBikeType"]">Назад</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

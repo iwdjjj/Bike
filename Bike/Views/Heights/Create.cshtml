@@ -1,0 +1,44 @@
+﻿@model Bike.Models.Height
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Добавить запись</h1>
+
+<h4>Высота ландшафта</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Terrain_height" class="control-label"></label>
+                <input asp-for="Terrain_height" class="form-control" />
+                <span asp-validation-for="Terrain_height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Complexity" class="control-label"></label>
+                <input asp-for="Complexity" class="form-control" />
+                <span asp-validation-for="Complexity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Time" class="control-label"></label>
+                <input asp-for="Time" class="form-control" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

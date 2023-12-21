@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@model IEnumerable<Bike.Models.Address>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Адреса</h1>
+
+<p>
+    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded || (await AuthorizationService.AuthorizeAsync(User, "RequireGuestRole")).Succeeded)
+    {
+        <a asp-action="Create">Добавить запись</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MainAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.House)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MainAddress.FullAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.House)
+            </td>
+            <td>
+                 <a asp-action="Details" asp-route-id="@item.AddressId">Детали</a>
+                 @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded || (await AuthorizationService.AuthorizeAsync(User, "RequireGuestRole")).Succeeded)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.AddressId">Редактировать</a>
+                        <a asp-action="Delete" asp-route-id="@item.AddressId">Удалить</a>
+                    }
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
